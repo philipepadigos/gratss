@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Congratulations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 50% 60%, #3a0818 0%, #1a0510 50%, #0d0308 100%);
+  overflow: hidden;
+  font-family: 'Cormorant Garamond', serif;
+  color: #f4c0d1;
+  position: relative;
+}
+
+.bokeh-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,192,209,0.35) 0%, transparent 70%);
+  animation: floatUp linear infinite;
+}
+.bokeh.gold {
+  background: radial-gradient(circle, rgba(255,220,150,0.25) 0%, transparent 70%);
+}
+@keyframes floatUp {
+  0% { transform: translateY(110vh) scale(0.4); opacity: 0; }
+  15% { opacity: 0.7; }
+  85% { opacity: 0.25; }
+  100% { transform: translateY(-15vh) scale(1.8); opacity: 0; }
+}
+
+.scene-wrap {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeScene 2.5s ease-out forwards;
+}
+@keyframes fadeScene { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+
+.bouquet-svg-wrap {
+  position: relative;
+  width: 420px;
+  height: 520px;
+  filter: drop-shadow(0 20px 60px rgba(80,5,30,0.7));
+}
+
+.text-content {
+  text-align: center;
+  margin-top: -10px;
+  animation: fadeScene 3.5s ease-out forwards;
+}
+.congrats-title {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4c0d1;
+  text-shadow: 0 0 40px rgba(244,140,180,0.5), 0 0 80px rgba(180,60,100,0.3);
+  margin-bottom: 8px;
+}
+.congrats-sub {
+  font-size: 1.1rem;
+  font-style: italic;
+  letter-spacing: 0.5em;
+  color: rgba(244, 192, 209, 0.6);
+}
+.ornament {
+  font-size: 1.4rem;
+  color: rgba(244,192,209,0.35);
+  letter-spacing: 0.6em;
+  margin-top: 8px;
+}
+
+#music-btn {
+  position: fixed; bottom: 28px; right: 28px;
+  background: rgba(244,192,209,0.06);
+  border: 1px solid rgba(244,192,209,0.25);
+  padding: 8px 18px;
+  color: rgba(244,192,209,0.75);
+  cursor: pointer;
+  font-family: inherit;
+  font-style: italic;
+  font-size: 0.85rem;
+  transition: 0.3s;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+  z-index: 99;
+}
+#music-btn:hover { background: rgba(244,192,209,0.12); color: #f4c0d1; }
+
+@media (max-width: 500px) {
+  .bouquet-svg-wrap { width: 300px; height: 380px; }
+  .congrats-title { font-size: 2.2rem; }
+  .congrats-sub { font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<audio id="bg-music" loop autoplay><source src="song.mp3" type="audio/mpeg"></audio>
+<button id="music-btn">♪ Play Music</button>
+
+<div class="bokeh-container" id="bokeh-wrap"></div>
+
+<div class="scene-wrap">
+  <div class="bouquet-svg-wrap">
+    <svg viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg" width="420" height="520">
+      <defs>
+        <!-- Rose deep red -->
+        <radialGradient id="rg1" cx="40%" cy="35%"><stop offset="0%" stop-color="#8b1a38"/><stop offset="100%" stop-color="#3d0818"/></radialGradient>
+        <!-- Rose medium -->
+        <radialGradient id="rg2" cx="40%" cy="35%"><stop offset="0%" stop-color="#c4426a"/><stop offset="100%" stop-color="#72183a"/></radialGradient>
+        <!-- Rose light pink -->
+        <radialGradient id="rg3" cx="40%" cy="35%"><stop offset="0%" stop-color="#e8829a"/><stop offset="100%" stop-color="#a03355"/></radialGradient>
+        <!-- Rose blush -->
+        <radialGradient id="rg4" cx="40%" cy="35%"><stop offset="0%" stop-color="#f0b8c8"/><stop offset="100%" stop-color="#c06080"/></radialGradient>
+        <!-- Peony white-pink -->
+        <radialGradient id="rg5" cx="50%" cy="40%"><stop offset="0%" stop-color="#fce8ef"/><stop offset="100%" stop-color="#d88aa8"/></radialGradient>
+        <!-- Stem green -->
+        <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1a3a1a"/><stop offset="100%" stop-color="#2d5a2d"/></linearGradient>
+        <!-- Ribbon -->
+        <linearGradient id="ribg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9b2040"/><stop offset="100%" stop-color="#5a0f20"/></linearGradient>
+        <!-- Leaf -->
+        <radialGradient id="leafg" cx="50%" cy="30%"><stop offset="0%" stop-color="#3a6b2a"/><stop offset="100%" stop-color="#1a3a15"/></radialGradient>
+      </defs>
+
+      <!-- ══ STEMS ══ -->
+      <g opacity="0.9">
+        <path d="M210,480 C208,430 195,380 185,310" stroke="url(#stem)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C212,420 230,370 240,295" stroke="url(#stem)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C207,440 175,395 158,330" stroke="url(#stem)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C213,435 250,385 268,320" stroke="url(#stem)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C210,450 165,420 148,360" stroke="url(#stem)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C210,455 258,418 278,355" stroke="url(#stem)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C210,455 200,430 148,390" stroke="url(#stem)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C210,455 225,425 282,385" stroke="url(#stem)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C209,445 192,415 175,360" stroke="url(#stem)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M210,480 C211,445 230,410 248,355" stroke="url(#stem)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- ══ LEAVES ══ -->
+      <g fill="url(#leafg)" opacity="0.85">
+        <ellipse cx="170" cy="370" rx="28" ry="11" transform="rotate(-40 170 370)"/>
+        <ellipse cx="255" cy="355" rx="26" ry="10" transform="rotate(35 255 355)"/>
+        <ellipse cx="148" cy="420" rx="22" ry="8" transform="rotate(-50 148 420)"/>
+        <ellipse cx="278" cy="410" rx="22" ry="8" transform="rotate(45 278 410)"/>
+        <ellipse cx="185" cy="340" rx="18" ry="7" transform="rotate(-30 185 340)"/>
+        <ellipse cx="248" cy="338" rx="18" ry="7" transform="rotate(30 248 338)"/>
+        <!-- Foliage wisps -->
+        <ellipse cx="130" cy="385" rx="14" ry="5" transform="rotate(-55 130 385)" opacity="0.7"/>
+        <ellipse cx="298" cy="378" rx="14" ry="5" transform="rotate(50 298 378)" opacity="0.7"/>
+      </g>
+
+      <!-- ══ BABY'S BREATH / FILLER ══ -->
+      <g fill="#e8c5d0" opacity="0.5">
+        <circle cx="148" cy="345" r="4"/><circle cx="140" cy="355" r="3"/><circle cx="155" cy="360" r="3.5"/>
+        <circle cx="275" cy="340" r="4"/><circle cx="283" cy="352" r="3"/><circle cx="268" cy="358" r="3.5"/>
+        <circle cx="135" cy="395" r="3"/><circle cx="144" cy="405" r="3.5"/>
+        <circle cx="290" cy="388" r="3"/><circle cx="280" cy="400" r="3.5"/>
+        <circle cx="160" cy="310" r="3"/><circle cx="152" cy="320" r="2.5"/>
+        <circle cx="270" cy="308" r="3"/><circle cx="278" cy="318" r="2.5"/>
+      </g>
+
+      <!-- ══ FLOWERS ══ -->
+
+      <!-- Helper macro: rose petal cluster -->
+      <!-- FLOWER 1: Large deep red rose — center -->
+      <g transform="translate(210,185) scale(1.0)" style="animation: bloom 1.2s 0.1s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg1)">
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(51.4)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(102.8)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(154.2)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(205.6)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(257)"/>
+          <ellipse cx="0" cy="-28" rx="22" ry="30" transform="rotate(308.4)"/>
+        </g>
+        <!-- Inner petals -->
+        <g fill="#6b1028" opacity="0.9">
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-16" rx="14" ry="18" transform="rotate(300)"/>
+        </g>
+        <circle cx="0" cy="0" r="12" fill="#3d0818"/>
+        <circle cx="0" cy="0" r="7" fill="#2a0510" opacity="0.8"/>
+      </g>
+
+      <!-- FLOWER 2: Medium pink rose — upper left -->
+      <g transform="translate(148,215) scale(0.82)" style="animation: bloom 1.2s 0.3s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg2)">
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(51.4)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(102.8)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(154.2)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(205.6)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(257)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(308.4)"/>
+        </g>
+        <g fill="#8a1e3e" opacity="0.9">
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(300)"/>
+        </g>
+        <circle cx="0" cy="0" r="11" fill="#5a0e28"/>
+      </g>
+
+      <!-- FLOWER 3: Medium rose — upper right -->
+      <g transform="translate(272,210) scale(0.83)" style="animation: bloom 1.2s 0.5s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg3)">
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(15)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(66.4)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(117.8)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(169.2)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(220.6)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(272)"/>
+          <ellipse cx="0" cy="-26" rx="20" ry="28" transform="rotate(323.4)"/>
+        </g>
+        <g fill="#c0557a" opacity="0.9">
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(15)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(75)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(135)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(195)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(255)"/>
+          <ellipse cx="0" cy="-15" rx="13" ry="17" transform="rotate(315)"/>
+        </g>
+        <circle cx="0" cy="0" r="11" fill="#7a2040"/>
+      </g>
+
+      <!-- FLOWER 4: Blush/pale rose — far left -->
+      <g transform="translate(112,255) scale(0.72)" style="animation: bloom 1.2s 0.7s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg4)">
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(51.4)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(102.8)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(154.2)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(205.6)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(257)"/>
+        </g>
+        <g fill="#d080a0" opacity="0.85">
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(300)"/>
+        </g>
+        <circle cx="0" cy="0" r="10" fill="#904060"/>
+      </g>
+
+      <!-- FLOWER 5: Deep red rose — far right -->
+      <g transform="translate(308,248) scale(0.73)" style="animation: bloom 1.2s 0.9s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg1)">
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(-10)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(41.4)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(92.8)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(144.2)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(195.6)"/>
+          <ellipse cx="0" cy="-24" rx="19" ry="26" transform="rotate(247)"/>
+        </g>
+        <g fill="#5a0e22" opacity="0.9">
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(-10)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(50)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(110)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(170)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(230)"/>
+          <ellipse cx="0" cy="-13" rx="12" ry="15" transform="rotate(290)"/>
+        </g>
+        <circle cx="0" cy="0" r="10" fill="#3d0810"/>
+      </g>
+
+      <!-- FLOWER 6: Peony white-pink — center-left, slightly back -->
+      <g transform="translate(173,155) scale(0.78)" style="animation: bloom 1.2s 1.1s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg5)" opacity="0.92">
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(36)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(108)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(252)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(288)"/>
+          <ellipse cx="0" cy="-26" rx="22" ry="18" transform="rotate(324)"/>
+        </g>
+        <g fill="#f5d0e0" opacity="0.85">
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(18)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(54)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(90)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(126)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(162)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(198)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(234)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(270)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(306)"/>
+          <ellipse cx="0" cy="-15" rx="16" ry="11" transform="rotate(342)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#e8a0b8"/>
+        <circle cx="0" cy="0" r="5" fill="#c87090"/>
+      </g>
+
+      <!-- FLOWER 7: Peony — center-right -->
+      <g transform="translate(248,150) scale(0.76)" style="animation: bloom 1.2s 1.3s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg4)" opacity="0.9">
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(36)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(108)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(252)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(288)"/>
+          <ellipse cx="0" cy="-24" rx="20" ry="16" transform="rotate(324)"/>
+        </g>
+        <g fill="#f0c8d8" opacity="0.85">
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(18)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(54)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(90)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(126)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(162)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(198)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(234)"/>
+          <ellipse cx="0" cy="-13" rx="13" ry="9" transform="rotate(270)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#d890b0"/>
+      </g>
+
+      <!-- FLOWER 8: Small rosebud — far top left -->
+      <g transform="translate(140,175) scale(0.55)" style="animation: bloom 1.2s 1.5s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg2)">
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(300)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#5a1020"/>
+      </g>
+
+      <!-- FLOWER 9: Small rosebud — far top right -->
+      <g transform="translate(282,170) scale(0.55)" style="animation: bloom 1.2s 1.7s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg3)">
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(-15)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(45)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(105)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(165)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(225)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(285)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#904060"/>
+      </g>
+
+      <!-- FLOWER 10: Small rose — lower left cluster -->
+      <g transform="translate(132,300) scale(0.60)" style="animation: bloom 1.2s 1.9s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg1)">
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(300)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#3d0812"/>
+      </g>
+
+      <!-- FLOWER 11: Small rose — lower right cluster -->
+      <g transform="translate(290,294) scale(0.60)" style="animation: bloom 1.2s 2.1s cubic-bezier(0.2,0.8,0.4,1) both">
+        <g fill="url(#rg4)">
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(10)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(70)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(130)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(190)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(250)"/>
+          <ellipse cx="0" cy="-20" rx="16" ry="22" transform="rotate(310)"/>
+        </g>
+        <circle cx="0" cy="0" r="9" fill="#c07090"/>
+      </g>
+
+      <!-- ══ RIBBON ══ -->
+      <g transform="translate(210,462)">
+        <!-- Ribbon tails -->
+        <path d="M0,0 L-30,-15 L-18,35 L0,18 Z" fill="url(#ribg)" opacity="0.9"/>
+        <path d="M0,0 L30,-15 L18,35 L0,18 Z" fill="#7a1830" opacity="0.9"/>
+        <!-- Ribbon loops -->
+        <path d="M0,0 C-15,-5 -50,-8 -55,5 C-60,18 -40,28 0,20" fill="url(#ribg)"/>
+        <path d="M0,0 C15,-5 50,-8 55,5 C60,18 40,28 0,20" fill="#9b2040"/>
+        <!-- Center knot -->
+        <ellipse cx="0" cy="10" rx="14" ry="10" fill="#6a1028"/>
+        <ellipse cx="0" cy="10" rx="8" ry="6" fill="#4a0818"/>
+      </g>
+
+      <!-- ══ FALLING PETALS ══ -->
+      <g opacity="0.4" fill="#f0a8c0">
+        <ellipse cx="80" cy="140" rx="8" ry="5" transform="rotate(25 80 140)"/>
+        <ellipse cx="330" cy="110" rx="6" ry="4" transform="rotate(-30 330 110)"/>
+        <ellipse cx="355" cy="270" rx="7" ry="4" transform="rotate(15 355 270)"/>
+        <ellipse cx="60" cy="310" rx="6" ry="4" transform="rotate(-20 60 310)"/>
+        <ellipse cx="95" cy="180" rx="5" ry="3" transform="rotate(40 95 180)" opacity="0.5"/>
+        <ellipse cx="340" cy="180" rx="5" ry="3" transform="rotate(-35 340 180)" opacity="0.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="text-content">
+    <h1 class="congrats-title">Congratulations</h1>
+    <p class="congrats-sub"> &nbsp;·&nbsp; JYL</p>
+    <p class="ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
+  </div>
+</div>
+
+<style>
+@keyframes bloom {
+  from { transform: scale(0); opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+
+<script>
+const bokehWrap = document.getElementById('bokeh-wrap');
+for (let i = 0; i < 55; i++) {
+  const b = document.createElement('div');
+  b.className = 'bokeh' + (i % 4 === 0 ? ' gold' : '');
+  const size = Math.random() * 70 + 15;
+  b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}vw;animation-duration:${Math.random()*14+10}s;animation-delay:${Math.random()*12}s;`;
+  bokehWrap.appendChild(b);
+}
+
+const music = document.getElementById('bg-music');
+const btn = document.getElementById('music-btn');
+function tryPlay() {
+  music.play().then(() => { btn.innerText = "♪ Pause Music"; }).catch(() => { btn.innerText = "♪ Tap to Play"; });
+}
+window.addEventListener('load', tryPlay);
+btn.addEventListener('click', () => {
+  if (music.paused) { music.play(); btn.innerText = "♪ Pause Music"; }
+  else { music.pause(); btn.innerText = "♪ Play Music"; }
+});
+document.body.addEventListener('click', () => { if(music.paused) tryPlay(); }, {once: true});
+</script>
+</body>
+</html>
